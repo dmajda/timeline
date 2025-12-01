@@ -3,6 +3,8 @@
 A timeline of programming languages I’ve used in my life. I made it mostly for
 fun and for my own reference.
 
+![My Programming Languages Timeline](timeline.svg)
+
 The timeline includes only languages I learned well and used substantially. I
 omitted languages I used only for one-off projects and periods when I used a
 language only occasionally.
