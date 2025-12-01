@@ -1,0 +1,232 @@
+{
+  "$schema": "https://vega.github.io/schema/vega/v6.json",
+  "title": {
+    "text": "My Programming Languages Timeline",
+    "offset": 15,
+    "fontSize": 16,
+    "color": "#404040"
+  },
+  "description": "A timeline of programming languages I’ve used in my life",
+  "width": 960,
+  "height": 364,
+  "padding": 15,
+  "background": "#ffffff",
+
+  "data": [
+    {
+      "name": "periods",
+      "values": [
+        {
+          "line": 1,
+          "start": 1994,
+          "end": 1997,
+          "type": "use",
+          "label": "QBasic"
+        },
+        {
+          "line": 2,
+          "start": 1997,
+          "end": 2002,
+          "type": "use",
+          "label": "Turbo Pascal"
+        },
+        {
+          "line": 3,
+          "start": 1997,
+          "end": 2002,
+          "type": "use",
+          "label": "Delphi"
+        },
+        {
+          "line": 4,
+          "start": 1999,
+          "end": 2025,
+          "type": "use",
+          "label": "JavaScript"
+        },
+        {
+          "line": 5,
+          "start": 2000,
+          "end": 2012,
+          "type": "use",
+          "label": "PHP"
+        },
+        {
+          "line": 6,
+          "start": 2002,
+          "end": 2009,
+          "type": "use",
+          "label": "C/C++"
+        },
+        {
+          "line": 7,
+          "start": 2004,
+          "end": 2006,
+          "type": "use",
+          "label": "Java"
+        },
+        {
+          "line": 8,
+          "start": 2006,
+          "end": 2014,
+          "type": "use",
+          "label": "Ruby"
+        },
+        { "line": 8, "start": 2015, "end": 2024, "type": "break" },
+        { "line": 8, "start": 2025, "end": 2025, "type": "use" },
+        {
+          "line": 9,
+          "start": 2009,
+          "end": 2009,
+          "type": "use",
+          "label": "Scheme"
+        },
+        {
+          "line": 10,
+          "start": 2012,
+          "end": 2014,
+          "type": "use",
+          "label": "CofeeScript"
+        },
+        {
+          "line": 11,
+          "start": 2017,
+          "end": 2023,
+          "type": "use",
+          "label": "Python"
+        },
+        { "line": 11, "start": 2024, "end": 2024, "type": "break" },
+        { "line": 11, "start": 2025, "end": 2025, "type": "use" },
+        {
+          "line": 12,
+          "start": 2017,
+          "end": 2023,
+          "type": "use",
+          "label": "Go"
+        },
+        { "line": 12, "start": 2024, "end": 2024, "type": "break" },
+        { "line": 12, "start": 2025, "end": 2025, "type": "use" },
+        {
+          "line": 13,
+          "start": 2024,
+          "end": 2024,
+          "type": "use",
+          "label": "TypeScript"
+        },
+        {
+          "line": 14,
+          "start": 2024,
+          "end": 2025,
+          "type": "use",
+          "label": "Rust"
+        }
+      ]
+    },
+    {
+      "name": "uses",
+      "source": "periods",
+      "transform": [{ "type": "filter", "expr": "datum.type == 'use'" }]
+    },
+    {
+      "name": "breaks",
+      "source": "periods",
+      "transform": [{ "type": "filter", "expr": "datum.type == 'break'" }]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "band",
+      "domain": [
+        1994, 1995, 1996, 1997, 1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
+        2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017,
+        2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025
+      ],
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "band",
+      "domain": { "data": "periods", "field": "line" },
+      "reverse": true,
+      "range": "height"
+    }
+  ],
+
+  "axes": [
+    {
+      "orient": "bottom",
+      "scale": "x",
+      "domain": false,
+      "ticks": false,
+      "tickBand": "extent",
+      "grid": true,
+      "gridDash": [2, 2],
+      "gridColor": "#f0f0f0",
+      "labelPadding": 10,
+      "labelColor": "#c0c0c0"
+    }
+  ],
+
+  "marks": [
+    {
+      "type": "rect",
+      "from": { "data": "uses" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "start" },
+          "x2": { "scale": "x", "field": "end", "band": 1 },
+          "y": { "scale": "y", "field": "line", "offset": 3 },
+          "height": { "scale": "y", "band": 1, "offset": -6 },
+          "cornerRadius": { "value": 6 }
+        }
+      }
+    },
+    {
+      "type": "text",
+      "from": { "data": "uses" },
+      "encode": {
+        "enter": {
+          "x": {
+            "scale": "x",
+            "field": "start",
+            "offset": { "signal": "datum.end - datum.start > 0 ? 6 : -6" }
+          },
+          "yc": { "scale": "y", "field": "line", "band": 0.5 },
+          "baseline": { "value": "middle" },
+          "align": {
+            "signal": "datum.end - datum.start > 0 ? 'left' : 'right'"
+          },
+          "text": { "field": "label" },
+          "fill": {
+            "signal": "datum.end - datum.start > 0 ? '#ffffff' : '#404040'"
+          }
+        }
+      }
+    },
+    {
+      "type": "rect",
+      "from": { "data": "breaks" },
+      "encode": {
+        "enter": {
+          "x": { "scale": "x", "field": "start" },
+          "x2": { "scale": "x", "field": "end", "band": 1 },
+          "y": {
+            "scale": "y",
+            "field": "line",
+            "band": 0.5,
+            "offset": -2
+          },
+          "y2": {
+            "scale": "y",
+            "field": "line",
+            "band": 0.5,
+            "offset": 2
+          },
+          "fill": { "value": "#dbe4ed" }
+        }
+      }
+    }
+  ]
+}

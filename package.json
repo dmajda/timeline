@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "vega-cli": "^6.2.0"
+  }
+}
