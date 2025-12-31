@@ -86,7 +86,7 @@
           "start": 2012,
           "end": 2014,
           "type": "use",
-          "label": "CofeeScript"
+          "label": "CoffeeScript"
         },
         {
           "line": 11,
